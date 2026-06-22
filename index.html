@@ -9,17 +9,17 @@
 <body>
   <header class="topbar">
     <div class="header-left">
-      <a href="harilal.html" aria-label="Go to home page">
+      <a href="index.html" aria-label="Go to home page">
         <img src="LOGO.png" alt="VBSPU New Logo" class="college-logo">
       </a>
       <div class="college-name">Veer Bahadur Singh University</div>
     </div>
     <nav class="main-nav">
-      <a href="harilal.html">Home</a>
-      <a href="harilal.html#admission-dashboard">Admission Dashboard</a>
-      <a href="harilal.html#courses">Courses</a>
-      <a href="harilal.html#faq">FAQ</a>
-      <a href="harilal.html#helpdesk">Helpdesk</a>
+      <a href="index.html">Home</a>
+      <a href="index.html#admission-dashboard">Admission Dashboard</a>
+      <a href="index.html#courses">Courses</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#helpdesk">Helpdesk</a>
     </nav>
   </header>
 
@@ -284,7 +284,7 @@
       const navLinks = document.querySelectorAll('.main-nav a');
       function updateNavActive() {
         const hash = location.hash || '#home';
-        const page = location.pathname.split('/').pop() || 'harilal.html';
+        const page = location.pathname.split('/').pop() || 'index.html';
         navLinks.forEach(a => {
           const href = a.getAttribute('href') || '';
           const isHashMatch = href === hash;
