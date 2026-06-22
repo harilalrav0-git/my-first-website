@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission - Veer Bahadur Singh University</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="header-left">
+      <img src="university-image.png" alt="VBSPU Logo" class="college-logo">
+      <div class="college-name">Veer Bahadur Singh University</div>
+    </div>
+    <nav class="main-nav">
+      <a href="harilal.html">Home</a>
+      <a href="harilal.html#services">Services</a>
+      <a href="harilal.html#dates">Dates</a>
+      <a href="harilal.html#courses">Courses</a>
+      <a href="harilal.html#faq">FAQ</a>
+      <a href="harilal.html#helpdesk">Helpdesk</a>
+      <a class="contact-link" href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section id="admission">
+    <h2 class="title">Student Admission Form</h2>
+    <p class="subtitle">Fill academic details below. All fields are validated in real-time.</p>
+
+    <div class="form-container" style="max-width:1000px;margin:0 auto;background:#fff;border-radius:10px;padding:40px;box-shadow:0 5px 20px rgba(0,0,0,0.08);">
+      <form id="studentForm" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <label for="fullName">Full Name</label>
+            <input id="fullName" type="text" placeholder="Full Name" required>
+            <div id="fullNameError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="dob">Date of Birth</label>
+            <input id="dob" type="date" required>
+            <div id="dobError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="email">Email Address</label>
+            <input id="email" type="email" placeholder="Email Address" required>
+            <div id="emailError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="phone">Mobile Number</label>
+            <input id="phone" type="tel" placeholder="Mobile Number" required>
+            <div id="phoneError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="course">Course Applying For</label>
+            <input id="course" type="text" placeholder="Course" required>
+            <div id="courseError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="year">Academic Year</label>
+            <input id="year" type="text" placeholder="Academic Year" required>
+            <div id="yearError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="enroll">Enrollment Number</label>
+            <input id="enroll" type="text" placeholder="Enrollment Number" required>
+            <div id="enrollError" class="error-message"></div>
+          </div>
+          <div>
+            <label for="percentage">Previous Year Percentage</label>
+            <input id="percentage" type="number" placeholder="Percentage" required>
+            <div id="percentageError" class="error-message"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:30px;text-align:center;">
+          <button id="submitBtn" type="submit" disabled>Submit Application</button>
+          <p id="formMessage" class="form-message"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div class="footer">
+    <p>© 2026 Veer Bahadur Singh University | All Rights Reserved | Email: <a href="mailto:harilalrav0@gmail.com">harilalrav0@gmail.com</a> | Phone: <a href="tel:+918922092431">+91-8922092431</a></p>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('studentForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const msg = document.getElementById('formMessage');
+
+      const validators = {
+        fullName: v => v.trim().length >= 3,
+        dob: v => v !== '',
+        email: v => /\S+@\S+\.\S+/.test(v),
+        phone: v => /^\d{10}$/.test(v.replace(/\s+/g,'')),
+        course: v => v !== '',
+        year: v => v.trim().length >= 1,
+        enroll: v => v.trim().length >= 3,
+        percentage: v => { const n = parseFloat(v); return !isNaN(n) && n >= 0 && n <= 100; }
+      };
+
+      function setState(id, valid, message){
+        const el = document.getElementById(id);
+        const err = document.getElementById(id + 'Error');
+        if(valid){ el.classList.remove('invalid'); el.classList.add('valid'); err.textContent = ''; }
+        else { el.classList.remove('valid'); el.classList.add('invalid'); err.textContent = message || 'Invalid value'; }
+      }
+
+      function validateField(id){
+        const el = document.getElementById(id);
+        const value = el.value || '';
+        const valid = validators[id] ? validators[id](value) : value.trim() !== '';
+        setState(id, valid);
+        return valid;
+      }
+
+      function checkForm(){
+        let ok = true;
+        Object.keys(validators).forEach(k => { if(!validateField(k)) ok = false; });
+        submitBtn.disabled = !ok;
+      }
+
+      form.addEventListener('input', function(e){
+        if(e.target && e.target.id) validateField(e.target.id);
+        checkForm();
+        msg.textContent = '';
+      });
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        checkForm();
+        if(submitBtn.disabled) return;
+        msg.textContent = 'Application submitted successfully!';
+        form.reset();
+        submitBtn.disabled = true;
+        Array.from(form.querySelectorAll('.valid, .invalid')).forEach(el=> el.classList.remove('valid','invalid'));
+      });
+
+      checkForm();
+    })();
+  </script>
+</body>
+</html>
